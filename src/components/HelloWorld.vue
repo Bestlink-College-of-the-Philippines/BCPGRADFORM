@@ -29,18 +29,6 @@
       <div class="row">
         <div class="col-12 mb-2">
           <div class="form-group">
-            <label>Student Number</label>
-            <input
-              type="text"
-              v-model="form_.student_number"
-              class="form-control"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="col-12 mb-2">
-          <div class="form-group">
             <label>Department</label>
             <input
               type="text"
@@ -150,7 +138,6 @@ export default {
     form_: {
       firstname: "",
       lastname: "",
-      student_number: "",
       department: "",
       section: "",
       avail_soft_copy: 0,
@@ -160,21 +147,14 @@ export default {
 
   methods: {
     submit() {
-      let student_data = db.collection('grad_forms').doc(this.form_.student_number);
+      let student_data = db.collection('grad_forms'); //.doc(this.form_.student_number);
       let soft_copy = document.querySelector('input[name="targetRDO"]:checked').value;
       this.form_.avail_soft_copy = Number(soft_copy);
-      student_data.get().then( data => {
-        if (data.exists) {
-          window.Swal.fire('Opps!', 'Student Number already existing', 'error');
-          return;
-        }
-
-        student_data.set(this.form_).then( () => {
+      student_data.add(this.form_).then( () => {
           window.Swal.fire('Success', 'Your form was successfully added', 'success');
           this.form_ = {
             firstname: "",
             lastname: "",
-            student_number: "",
             department: "",
             section: "",
             avail_soft_copy: 0,
@@ -182,7 +162,16 @@ export default {
           }
         }).catch(err => console.log(err));
 
-      }).catch(err => console.log(err));
+
+      // student_data.get().then( data => {
+      //   if (data.exists) {
+      //     window.Swal.fire('Opps!', 'Student Number already existing', 'error');
+      //     return;
+      //   }
+
+        
+
+      // }).catch(err => console.log(err));
       
       
     },

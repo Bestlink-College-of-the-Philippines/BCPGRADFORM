@@ -10,7 +10,6 @@
                 <table class="table table-sm table-bordered">
                     <thead>
                         <tr>
-                            <th>Student Number</th>
                             <th>Firstname</th>
                             <th>Lastname</th>
                             <th>Section</th>
@@ -21,7 +20,6 @@
                     </thead>
                     <tbody>
                         <tr v-for="(student, index) in forms" :key="index">
-                            <td>{{ student.student_number }}</td>
                             <td>{{ student.firstname }}</td>
                             <td>{{ student.lastname }}</td>
                             <td>{{ student.section }}</td>
